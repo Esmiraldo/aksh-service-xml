@@ -1,1 +1,1 @@
-# aksh-service-xml
+Custom wordpress plugin for reading xml of a pharmacy
