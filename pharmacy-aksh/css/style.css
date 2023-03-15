@@ -1,0 +1,157 @@
+.bzn-pharm-style {
+  font-family: "Open Sans", sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  color: #333;
+}
+
+.bzn-pharm-style h2 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 36px;
+  margin: 0;
+  text-align: center;
+}
+
+.bzn-pharm-style p {
+  font-size: 18px;
+  margin: 10px 0;
+  text-align: center;
+}
+
+.pharm-item {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.pharm-item:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.pharm-status {
+  font-family: "Montserrat", sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+  width: 100px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 20px;
+  margin-right: 20px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.pharm-status.open {
+  color: #2ecc71;
+  background-color: #dff0d8;
+}
+
+.pharm-status.closed {
+  color: #e74c3c;
+  background-color: #f2dede;
+}
+
+.pharm-details {
+  flex: 1;
+}
+
+.bzn-pharm-style h4 {
+  font-size: 24px;
+  margin: 0;
+  transition: color 0.3s ease-in-out;
+}
+.pharm-item:hover h4 {
+  color: #1abc9c;
+}
+
+.pharm-address {
+  font-size: 16px;
+  margin-top: 10px;
+  opacity: 0.8;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.pharm-item:hover .pharm-address {
+  opacity: 1;
+}
+
+.pharm-address a {
+  text-decoration: none;
+  color: #3498db;
+  transition: color 0.3s ease-in-out;
+}
+
+.pharm-address a:hover {
+  text-decoration: underline;
+  color: #2980b9;
+}
+
+@keyframes fadeInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.pharm-item:nth-child(odd) {
+  animation: fadeInUp 0.5s ease-in-out forwards;
+}
+
+.pharm-item:nth-child(even) {
+  animation: fadeInUp 0.5s ease-in-out 0.1s forwards;
+}
+
+@media (max-width: 768px) {
+  .pharm-item {
+    flex-wrap: wrap;
+    margin: 10px 0;
+    padding: 10px;
+  }
+
+  .pharm-status {
+    width: 60px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 16px;
+    margin-right: 10px;
+  }
+
+  h4 {
+    font-size: 20px;
+  }
+
+  .pharm-address {
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  p {
+    font-size: 16px;
+  }
+}
+
+.bzn-pharm-style::-webkit-scrollbar {
+  width: 8px;
+}
+
+.bzn-pharm-style::-webkit-scrollbar-track {
+  background-color: #f5f5f5;
+}
+
+.bzn-pharm-style::-webkit-scrollbar-thumb {
+  background-color: #3498db;
+  border-radius: 10px;
+}
+
+.bzn-pharm-style::-webkit-scrollbar-thumb:hover {
+  background-color: #2980b9;
+}
