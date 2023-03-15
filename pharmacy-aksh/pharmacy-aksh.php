@@ -1,7 +1,7 @@
 <?php
 /*
-Plugin Name: Pharmacies Shortcode
-Description: A shortcode that displays the data of pharmacies from a dynamic XML file.
+Plugin Name: Aksh XML - Pharmacies
+Description: A custom plugin use [pharmacies_bzn] to your page
 Author: BZN.GR
 Version: 1.0.0
 */
@@ -14,6 +14,7 @@ class Pharmacies_Shortcode
     private $xml;
     private $notdienste;
     public static function init() {
+        add_shortcode('pharmacies_bzn', array(__CLASS__, 'get_pharmacies'));
         add_action('wp_enqueue_scripts', array(__CLASS__, 'enqueue_styles'));
     }
     public static function enqueue_styles() {
@@ -21,7 +22,7 @@ class Pharmacies_Shortcode
     }
     public function __construct()
     {
-        $this->url = 'URL';
+        $this->url = 'https://www.aksh-service.de/notdienste/exporte/xml.php?m=koord&w=53.646758;7.610909&a=4;c=iso';
         $this->xml = simplexml_load_file($this->url);
         $this->notdienste = $this->xml->notdienste;
     }
@@ -29,7 +30,7 @@ class Pharmacies_Shortcode
     public function get_pharmacies()
     {
         $output = '<div class="bzn-pharm-style">';
-        $output .= '<h2>' . $this->xml->beschreibung . '</h2>';
+        $output .= '<h3>' . $this->xml->beschreibung . '</h3>';
         $output .= '<p>' . $this->xml->notdienstzeiten . '</p>';
 
         date_default_timezone_set('Europe/Berlin');
@@ -53,26 +54,22 @@ class Pharmacies_Shortcode
         }
 
         if (!empty($open_pharmacies)) {
-            $output .= '<h3>Geöffnete Apotheken:</h3>';
             foreach ($open_pharmacies as $notdienst) {
                 $output .= '<div class="pharm-item">';
                 $output .= '<div class="pharm-status open">' . $notdienst->status . '</div>';
                 $output .= '<div class="pharm-details">';
                 $output .= '<h4>' . esc_html($notdienst->apotheke) . '</h4>';
-                $output .= '<div class="pharm-address"><p>' . $notdienst->strasse . '<br>' . $notdienst->plz . ' ' . $notdienst->ort . '</p><p>' . $notdienst->telefon . '</p><p><a href="https://www.google.com/maps/search/?api=1&query=' . str_replace(' ', '+', $notdienst->strasse . ', ' . $notdienst->plz . ' ' . $notdienst->ort) . '&query_place_id=' . $notdienst->place_id . '" target="_blank">Adresse öffnen in Google Maps</a></p><p>Latitude: ' . $notdienst->latitude . '</p><p>Longitude: ' . $notdienst->longitude . '</p></div>';
                 $output .= '</div>';
                 $output .= '</div>';
             }
         }
 
         if (!empty($closed_pharmacies)) {
-            $output .= '<h3>Geschlossene Apotheken:</h3>';
             foreach ($closed_pharmacies as $notdienst) {
                 $output .= '<div class="pharm-item">';
-                $output .= '<div class="pharm-status closed">' . $notdienst->status . '</div>';
                 $output .= '<div class="pharm-details">';
                 $output .= '<h4>' . $notdienst->apotheke . '</h4>';
-                $output .= '<div class="pharm-address"><p>' . $notdienst->strasse . '<br>' . $notdienst->plz . ' ' . $notdienst->ort . '</p><p>' . $notdienst->telefon . '</p><p><a href="https://www.google.com/maps/search/?api=1&query=' . str_replace(' ', '+', $notdienst->strasse . ', ' . $notdienst->plz . ' ' . $notdienst->ort) . '&query_place_id=' . $notdienst->place_id . '" target="_blank">Adresse öffnen in Google Maps</a></p><p>Latitude: ' . $notdienst->latitude . '</p><p>Longitude: ' . $notdienst->longitude . '</p></div>';
+                $output .= '<div class="pharm-address"><p>' . $notdienst->strasse . '<br>' . $notdienst->plz . ' ' . $notdienst->ort . '</p><p><a href="tel:' . $notdienst->telefon . '">' . $notdienst->telefon . '</a></p><p><a href="https://www.google.com/maps/search/?api=1&query=' . str_replace(' ', '+', $notdienst->strasse . ', ' . $notdienst->plz . ' ' . $notdienst->ort) . '&query_place_id=' . $notdienst->place_id . '" target="_blank">' . esc_html__('Adresse öffnen in Google Maps', 'my-plugin') . '</a></p></div>';
                 $output .= '</div>';
                 $output .= '</div>';
             }
